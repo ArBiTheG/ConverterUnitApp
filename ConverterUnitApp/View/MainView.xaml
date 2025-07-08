@@ -1,0 +1,76 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:local="clr-namespace:ConverterUnitApp.View"
+             xmlns:ViewModel="clr-namespace:ConverterUnitApp.ViewModel" x:Class="ConverterUnitApp.View.MainView"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <d:UserControl.DataContext>
+        <ViewModel:MainViewModel/>
+    </d:UserControl.DataContext>
+    <Grid>
+        <StackPanel>
+            <Grid Margin="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="32"/>
+                </Grid.RowDefinitions>
+                <ComboBox Grid.Row="0" Margin="2" ItemsSource="{Binding UnitTypes}" SelectedItem="{Binding SelectedUnitType}" DisplayMemberPath="Name">
+                </ComboBox>
+                <TextBlock Grid.Row="1" Margin="2" Text="Описание"/>
+                <TextBlock Grid.Row="2" Margin="2" Text="Сообщение"/>
+            </Grid>
+
+            <Grid Margin="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="32"/>
+                </Grid.RowDefinitions>
+                <ComboBox Margin="2" Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding Units}" SelectedItem="{Binding SelectedFirstUnit}" DisplayMemberPath="Name">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding CalculateCommand}" CommandParameter="{Binding Text, ElementName=firstTextBox}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+                <TextBox x:Name="firstTextBox" Margin="2" Grid.Row="1" Text="{Binding TextFirstUnit}" PreviewTextInput="TextBox_PreviewTextInput" TextChanged="TextBox_TextChanged">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding CalculateCommand}" CommandParameter="{Binding Text, ElementName=firstTextBox}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+                <Button Margin="2" Grid.Row="1" Grid.Column="1" Content="Скопировать" Command="{Binding CopyCommand}" CommandParameter="{Binding Text, ElementName=firstTextBox}"/>
+            </Grid>
+            <Button Margin="4" Content="Поменять местами" Command="{Binding ChangeUnitsCommand}"/>
+            <Grid Margin="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="32"/>
+                </Grid.RowDefinitions>
+
+                <ComboBox Margin="2" Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding Units}" SelectedItem="{Binding SelectedSecondUnit}" DisplayMemberPath="Name">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding CalculateCommand}" CommandParameter="{Binding Text, ElementName=firstTextBox}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+                <TextBox x:Name="secondTextBox" IsReadOnly="True" Margin="2" Grid.Row="1" Text="{Binding TextSecondUnit}"/>
+                <Button Margin="2" Grid.Row="1" Grid.Column="1" Content="Скопировать" Command="{Binding CopyCommand}" CommandParameter="{Binding Text, ElementName=secondTextBox}"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>
