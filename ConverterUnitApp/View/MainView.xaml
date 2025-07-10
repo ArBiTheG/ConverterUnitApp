@@ -16,13 +16,11 @@
             <Grid Margin="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="32"/>
-                    <RowDefinition Height="32"/>
-                    <RowDefinition Height="32"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <ComboBox Grid.Row="0" Margin="2" ItemsSource="{Binding UnitTypes}" SelectedItem="{Binding SelectedUnitType}" DisplayMemberPath="Name">
                 </ComboBox>
-                <TextBlock Grid.Row="1" Margin="2" Text="Описание"/>
-                <TextBlock Grid.Row="2" Margin="2" Text="Сообщение"/>
+                <TextBlock Grid.Row="1" Margin="2" Text="{Binding SelectedUnitType.Description}" TextWrapping="Wrap"/>
             </Grid>
 
             <Grid Margin="2">

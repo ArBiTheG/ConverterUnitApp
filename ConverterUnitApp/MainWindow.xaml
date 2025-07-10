@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ConverterUnitApp"
         xmlns:View="clr-namespace:ConverterUnitApp.View" x:Class="ConverterUnitApp.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Конвертер величин" MinHeight="400" MinWidth="400" Height="400" Width="400">
     <Grid>
         <View:MainView/>
     </Grid>
